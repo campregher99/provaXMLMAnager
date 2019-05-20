@@ -45,9 +45,13 @@ class LetturaScrittura {
 				case XMLStreamConstants.START_ELEMENT:
 					if (isPrimo) {
 						newStruttura = new StrutturaDati(xmlr.getLocalName());
+						for (int i = 0; i < xmlr.getAttributeCount(); i++) {
+							newStruttura.addTag(xmlr.getAttributeLocalName(i), xmlr.getAttributeValue(i));
+						}
 						isPrimo = false;
-					} else
+					} else {
 						newStruttura.addAttributo(letturaElemento());
+					}					
 					break;
 				case XMLStreamConstants.END_ELEMENT:
 					return newStruttura;
@@ -59,9 +63,7 @@ class LetturaScrittura {
 					}
 					break;
 				case XMLStreamConstants.ATTRIBUTE:
-					for (int i = 0; i < xmlr.getAttributeCount(); i++) {
-						newStruttura.addTag(xmlr.getAttributeLocalName(i), xmlr.getAttributeValue(i));
-					}
+					
 					break;
 				}
 				xmlr.next();
